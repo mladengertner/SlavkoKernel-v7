@@ -1,0 +1,57 @@
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  sbom-and-notice:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Set up Go (for syft binary use) 
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20'
+
+      - name: Generate SBOM with Syft
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+          syft packages dir:. -o cyclonedx-json > sbom.cdx.json
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.cdx.json
+
+      - name: Generate NOTICE from SBOM
+        run: |
+          chmod +x tools/generate-notice-from-sbom.sh
+          ./tools/generate-notice-from-sbom.sh
+
+      - name: Commit NOTICE back to branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add NOTICE || true
+          if git diff --cached --quiet; then
+            echo "No changes to NOTICE"
+          else
+            git commit -m "ci: generate NOTICE from SBOM" || true
+            git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}" HEAD:${{ github.head_ref || github.ref_name }}
+          fi
+
+  license-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run license detection using licensee
+        uses: n0rad/licensee-action@v2
