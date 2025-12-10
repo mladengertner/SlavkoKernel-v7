@@ -9,6 +9,9 @@ on:
 jobs:
   sbom:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
     steps:
       - uses: actions/checkout@v4
       - name: Generate SBOM with Syft
@@ -24,6 +27,8 @@ jobs:
 
   license-scan:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - name: Run license detection using licensee
