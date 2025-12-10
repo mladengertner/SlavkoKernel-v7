@@ -1,3 +1,5 @@
+name: Compliance and SBOM
+
 on:
   push:
     branches: [ main, master ]
@@ -10,10 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Generate SBOM with Syft
-        uses: anchore/syft-action@v0.2.0
+        uses: anchore/syft-action@v1
         with:
-          output_format: cyclonedx
-          output: sbom.cdx.json
+          output-file: sbom.cdx.json
+          format: cyclonedx-json
       - name: Upload SBOM artifact
         uses: actions/upload-artifact@v4
         with:
