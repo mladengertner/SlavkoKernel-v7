@@ -9,6 +9,8 @@ on:
 jobs:
   sbom-and-notice:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # needed to commit NOTICE back to branch
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -54,6 +56,8 @@ jobs:
 
   license-scan:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - name: Run license detection using licensee
