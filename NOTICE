@@ -1,0 +1,13 @@
+NOTICE
+Copyright 2025 Mladen Gertner
+
+This product includes software licensed under the Apache License, Version 2.0.
+
+Third-party components:
+- PostgreSQL (PostgreSQL License)
+- Redis (BSD 3-Clause License)
+- Ollama (Apache 2.0)
+- Prometheus (Apache 2.0)
+- Grafana (AGPLv3)
+
+No additional notices.

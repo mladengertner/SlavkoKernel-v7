@@ -1,7 +1,7 @@
 # SlavkoKernel v7 — Enterprise Multi‑Agent Orchestration (Ollama Ready, Audit‑Proof, Zero‑Excuses)
 
 [![CI/CD](https://github.com/mladengertner/SlavkoKernel-v7/actions/workflows/ci.yml/badge.svg)](https://github.com/mladengertner/SlavkoKernel-v7/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](docker/docker-compose.yaml)
 [![Ollama Hub](https://img.shields.io/badge/Ollama-Hub-FF6B35.svg)](https://ollama.ai)
@@ -255,6 +255,8 @@ Branching:
 
 ---
 
-## License
-MIT — see [LICENSE](LICENSE).
-```
+## Licence
+
+Ovaj projekt je licenciran pod Apache License 2.0 – pogledajte [LICENSE](LICENSE) datoteku za detalje.
+
+SPDX-License-Identifier: Apache-2.0

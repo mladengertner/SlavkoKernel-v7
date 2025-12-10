@@ -1,0 +1,28 @@
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate SBOM with Syft
+        uses: anchore/syft-action@v0.2.0
+        with:
+          output_format: cyclonedx
+          output: sbom.cdx.json
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.cdx.json
+
+  license-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run license detection using licensee
+        uses: n0rad/licensee-action@v2
