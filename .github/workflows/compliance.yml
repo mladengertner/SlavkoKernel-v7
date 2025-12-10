@@ -1,3 +1,5 @@
+name: Compliance
+
 on:
   push:
     branches: [ main, master ]
@@ -17,7 +19,7 @@ jobs:
       - name: Set up Go (for syft binary use) 
         uses: actions/setup-go@v4
         with:
-          go-version: '1.20'
+          go-version: '1.21'
 
       - name: Generate SBOM with Syft
         run: |
@@ -46,7 +48,8 @@ jobs:
             echo "No changes to NOTICE"
           else
             git commit -m "ci: generate NOTICE from SBOM" || true
-            git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}" HEAD:${{ github.head_ref || github.ref_name }}
+            git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}"
+            git push origin HEAD:${{ github.head_ref || github.ref_name }}
           fi
 
   license-scan:
