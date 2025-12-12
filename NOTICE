@@ -1,0 +1,13 @@
+NOTICE
+Copyright 2025 Mladen Gertner
+
+This product includes software licensed under the Apache License, Version 2.0.
+
+Third-party components (from SBOM):
+- /home/runner/work/SlavkoKernel-v7/SlavkoKernel-v7/.github/workflows/compliance.yml (UNKNOWN)
+- actions/checkout (UNKNOWN)
+- actions/setup-go (UNKNOWN)
+- actions/upload-artifact (UNKNOWN)
+- n0rad/licensee-action (UNKNOWN)
+
+No additional notices.
